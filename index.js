@@ -56,6 +56,52 @@ app.post('/signup', (request, response) => {
 
 // ************************************** //
 
+// ********** Listing the Questions ********** //
+let quizQuestions = [
+
+    {
+  
+      id: 1,
+  
+      question: 'What is the capital of France?',
+  
+      options: ['Paris', 'London', 'Berlin', 'Madrid'],
+  
+      correctOption: 0
+  
+    },
+  
+    {
+  
+      id: 2,
+  
+      question: 'Which planet is known as the Red Planet?',
+  
+      options: ['Mars', 'Venus', 'Jupiter', 'Mercury'],
+  
+      correctOption: 0
+  
+    },
+
+  ];
+
+// ********** Creating API Endpoint for Adding a Question ********** //
+app.post ('/add-question', (request, response) => {
+    let {question, options, correctOption} = request.body;
+    let newQuestion = {
+        id : quizQuestions.length + 1,
+        question,
+        options,
+        correctOption
+    };
+    quizQuestions.push(newQuestion);
+    return response.status(203).json({
+        message: "New Question Added Successfully",
+        newQuestion
+    })
+});
+// ****************************************** //
+
 //**********Running the Server******** //
 app.listen(portNo, () => {
     console.log(`Server is running on ${portNo}`);
