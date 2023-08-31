@@ -102,6 +102,23 @@ app.post ('/add-question', (request, response) => {
 });
 // ****************************************** //
 
+// *********** Deleting a Question From the Admin Perspective ********** //
+app.delete('/delete-question/:id', (request, response) => {
+    const questionId = parseInt(request.params.id);
+    const index = quizQuestions.findIndex((question) => question.id === questionId);
+    if (index == -1) {
+        return response.status(401).json({
+            message: "Question Not Found and hence can't be removed",
+        })
+    }
+    quizQuestions.splice(index, 1);
+    return response.status(203).json({
+        message: "Question removed successfully",
+    })
+
+});
+// ***************************************** //
+
 //**********Running the Server******** //
 app.listen(portNo, () => {
     console.log(`Server is running on ${portNo}`);
